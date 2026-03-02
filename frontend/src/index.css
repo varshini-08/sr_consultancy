@@ -1,0 +1,348 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap');
+
+:root {
+  --primary-color: #c0392b;
+  /* Deep Red/Terracotta for buttons & accents */
+  --primary-hover: #a93226;
+  --secondary-color: #5d4037;
+  /* Dark Brown for text/headings */
+  --accent-color: #d35400;
+  /* Pumpkin/Orange for highlights */
+  --background-color: #fdfbf7;
+  /* Off-white/Cream background */
+  --text-color: #4e342e;
+  /* Dark Coffee brown for body text */
+  --white: #ffffff;
+  --light-gray: #f4f4f4;
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Lato', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  color: var(--secondary-color);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Helper Classes */
+.text-center {
+  text-align: center;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.mt-3 {
+  margin-top: 3rem;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--white);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+/* SR Bakery CSS Logo */
+.sr-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  font-family: 'Playfair Display', serif;
+  margin-right: 20px;
+}
+
+.logo-shield-top {
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 30px solid #c0392b;
+  /* Red Roof */
+  position: relative;
+  top: 2px;
+}
+
+.logo-content {
+  background-color: transparent;
+  border: 4px solid #c0392b;
+  border-top: none;
+  width: 100px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -2px;
+}
+
+.logo-initials {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #5d4037;
+  /* Dark Brown */
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.logo-ribbon {
+  background-color: #c0392b;
+  color: white;
+  padding: 2px 15px;
+  position: relative;
+  margin-top: -15px;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.logo-ribbon::before,
+.logo-ribbon::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  bottom: -5px;
+  width: 15px;
+  background-color: #a93226;
+  z-index: -1;
+}
+
+.logo-ribbon::before {
+  left: -10px;
+  transform: skewY(15deg);
+}
+
+.logo-ribbon::after {
+  right: -10px;
+  transform: skewY(-15deg);
+}
+
+.ribbon-text {
+  font-family: 'Lato', sans-serif;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.logo-tagline {
+  font-size: 0.5rem;
+  color: #5d4037;
+  letter-spacing: 1px;
+  margin-top: 5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  position: relative;
+}
+
+.logo-tagline::before,
+.logo-tagline::after {
+  content: '';
+  display: inline-block;
+  width: 15px;
+  height: 1px;
+  background-color: #5d4037;
+  vertical-align: middle;
+  margin: 0 5px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  flex: 1;
+  /* Pushes links to take available space */
+  justify-content: center;
+  /* Centers links */
+}
+
+.nav-links a {
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s;
+  text-transform: capitalize;
+  /* Or uppercase as per design preference */
+  letter-spacing: 0.5px;
+}
+
+.nav-links a:hover {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.cart-icon {
+  position: relative;
+  font-size: 1.4rem;
+  color: var(--secondary-color);
+  transition: color 0.3s;
+}
+
+.cart-icon:hover {
+  color: var(--primary-color);
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+.login-btn {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: all 0.3s;
+  text-transform: uppercase;
+}
+
+.login-btn:hover {
+  background-color: var(--primary-hover);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer */
+.footer {
+  background-color: #2c1a16;
+  /* Very dark brown */
+  color: #d7ccc8;
+  padding: 3rem 0;
+  margin-top: auto;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.footer a {
+  color: #d7ccc8;
+  transition: color 0.3s;
+}
+
+.footer a:hover {
+  color: var(--white);
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+/* Sections */
+.section-title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.section-subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-bottom: 3rem;
+  font-style: italic;
+}

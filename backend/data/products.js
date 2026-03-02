@@ -1,0 +1,68 @@
+const products = [
+    {
+        name: 'Chocolate Truffle Cake',
+        image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        description: 'Rich chocolate truffle cake with dark chocolate ganache.',
+        category: 'Cakes',
+        price: 450,
+        stock: 10,
+    },
+    {
+        name: 'Red Velvet Cake',
+        image: 'https://images.unsplash.com/photo-1586788680434-30d324636205?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        description: 'Classic red velvet cake with cream cheese frosting.',
+        category: 'Cakes',
+        price: 500,
+        stock: 8,
+    },
+    {
+        name: 'Croissant',
+        image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        description: 'Buttery, flaky, and golden croissant.',
+        category: 'Pastries',
+        price: 80,
+        stock: 20,
+    },
+    {
+        name: 'Vegetable Puff',
+        image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        description: 'Crispy puff pastry filled with spicy vegetable mix.',
+        category: 'Snacks',
+        price: 25,
+        stock: 50,
+    },
+    {
+        name: 'Chicken Burger',
+        image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        description: 'Juicy chicken burger with fresh lettuce and mayo.',
+        category: 'Fast Food',
+        price: 120,
+        stock: 15,
+    },
+    {
+        name: 'Cold Coffee',
+        image: 'https://images.unsplash.com/photo-1517701604599-bb29b5dd73ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        description: 'Chilled creamy coffee to refresh your day.',
+        category: 'Beverages',
+        price: 90,
+        stock: 30,
+    },
+    {
+        name: 'Fresh Orange Juice',
+        image: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        description: 'Freshly squeezed orange juice, no added sugar.',
+        category: 'Juices',
+        price: 70,
+        stock: 25,
+    },
+    {
+        name: 'Masala Chai',
+        image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        description: 'Traditional Indian spiced tea.',
+        category: 'Tea/Coffee',
+        price: 20,
+        stock: 100,
+    },
+];
+
+module.exports = products;
