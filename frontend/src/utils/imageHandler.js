@@ -16,8 +16,9 @@ export const getImageUrl = (imagePath) => {
         return imagePath;
     }
 
-    // Get base backend URL
-    const baseUrl = ''; // Use same domain in production
+    // Get base backend URL (strip /api if present)
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/api';
+    const baseUrl = backendUrl.replace('/api', '');
 
     // Ensure imagePath starts with /
     const normalizedPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
