@@ -20,6 +20,11 @@ export const getImageUrl = (imagePath) => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/api';
     const baseUrl = backendUrl.replace('/api', '');
 
+    // If it's a GridFS path starting with /api/upload/image/, ensure it has the base URL
+    if (imagePath.startsWith('/api/upload/image/')) {
+        return `${baseUrl}${imagePath}`;
+    }
+
     // Ensure imagePath starts with /
     const normalizedPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
 

@@ -21,6 +21,7 @@
     "mongodb": "^7.1.0",
     "mongoose": "^9.2.1",
     "multer": "^2.1.1",
+    "multer-gridfs-storage": "^5.0.2",
     "nodemailer": "^8.0.2",
     "razorpay": "^2.9.6",
     "xlsx": "^0.18.5"
