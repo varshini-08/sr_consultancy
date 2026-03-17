@@ -1,0 +1,17 @@
+﻿[dotenv@17.2.4] injecting env (9) from .env -- tip: ΓÜÖ∩╕Å  specify custom .env file path with { path: '/custom/path/.env' }
+--- Database Verification (Selected) ---
+Mushroom Fry -> /uploads/mushroom_fry_new.jpg
+Gobi 65 -> /uploads/gobi_65_new.jpg
+Mushroom 65 -> https://placehold.co/400x300/c0392b/ffffff?text=Mushroom%2065
+Paneer 65 -> /uploads/paneer_65_new.jpg
+Paneer Manchurian -> /uploads/paneer_manchurian_new.png
+Mushroom Manchurian -> https://placehold.co/400x300/c0392b/ffffff?text=Mushroom%20Manchurian
+Gobi Manchurian -> https://placehold.co/400x300/c0392b/ffffff?text=Gobi%20Manchurian
+Egg Mushroom Fry -> /uploads/egg_mushroom_fry_new.png
+Chicken Manchurian -> /uploads/chicken_manchurian_new.png
+Chicken Fried Lollipop -> /uploads/chicken_lollipop_new.jpg
+Chicken Fried Wings -> https://placehold.co/400x300/c0392b/ffffff?text=Chicken%20Fried%20Wings
+Boneless Chicken 65 -> /uploads/boneless_chicken_65_new.jpg
+Quarter -> /uploads/quarter_new.png
+Half -> https://placehold.co/400x300/c0392b/ffffff?text=Half
+Full -> /uploads/full_new.png

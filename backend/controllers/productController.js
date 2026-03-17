@@ -18,6 +18,11 @@ const getProductById = async (req, res) => {
 const createProduct = async (req, res) => {
     const { name, category, price, stock, image, description } = req.body;
 
+    if (price < 0 || stock < 0) {
+        res.status(400).json({ message: 'Price and Stock cannot be negative' });
+        return;
+    }
+
     const product = new Product({
         name,
         category,
@@ -33,6 +38,11 @@ const createProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     const { name, category, price, stock, image, description } = req.body;
+
+    if (price < 0 || stock < 0) {
+        res.status(400).json({ message: 'Price and Stock cannot be negative' });
+        return;
+    }
 
     const product = await Product.findById(req.params.id);
 

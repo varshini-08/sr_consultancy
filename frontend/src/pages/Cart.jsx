@@ -44,6 +44,9 @@ const Cart = () => {
                             <div>
                                 <h3 style={{ margin: 0, fontSize: '1.1rem' }}>{item.name}</h3>
                                 <p style={{ color: '#666', margin: '5px 0' }}>₹{item.price}</p>
+                                {item.qty >= item.stock && (
+                                    <span style={{ color: '#e67e22', fontSize: '0.8rem', fontWeight: '500' }}>Max stock reached</span>
+                                )}
                             </div>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>

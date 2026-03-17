@@ -3,16 +3,23 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 
-dotenv.config();
+dotenv.config({ override: true });
+const { sendStartupTestEmail } = require('./utils/notification');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json());
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.url}`);
+    next();
+});
 app.use(cors({
-    origin: ['http://localhost:5173'], // Allow frontend
+    origin: ['http://localhost:5173'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
 }));
 app.use(cookieParser());
@@ -33,13 +40,25 @@ const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
+const activityRoutes = require('./routes/activityRoutes');
+const userRoutes = require('./routes/userRoutes');
+const settingRoutes = require('./routes/settingRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/analytics', analyticsRoutes);
+app.use('/api/activities', activityRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/settings', settingRoutes);
+app.use('/api/upload', uploadRoutes);
 
-// Static assets (if needed later for images)
-// app.use('/uploads', express.static('uploads'));
+// Static assets
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    // Send test email on startup to verify configuration
+    sendStartupTestEmail();
+});

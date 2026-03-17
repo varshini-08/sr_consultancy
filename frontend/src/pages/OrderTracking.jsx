@@ -113,8 +113,11 @@ const OrderTracking = () => {
                                 </li>
                             ))}
                         </ul>
-                        <div style={{ marginTop: '15px', fontWeight: 'bold', fontSize: '1.1rem', textAlign: 'right' }}>
-                            Total: ₹{order.totalPrice}
+                        <div style={{ marginTop: '15px' }}>
+                            <p><strong>Shipping Mobile:</strong> {order.shippingAddress?.mobileNumber || 'N/A'}</p>
+                        </div>
+                        <div style={{ marginTop: '5px', fontWeight: 'bold', fontSize: '1.1rem', textAlign: 'right' }}>
+                            Total: ₹{order.totalAmount}
                         </div>
                     </div>
                 </div>

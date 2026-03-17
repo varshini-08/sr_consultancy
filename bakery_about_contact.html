@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S R Bakery - About Us & Contact</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- Custom Bakery Styling -->
+    <style>
+        :root {
+            /* Warm Bakery Colors */
+            --bakery-cream: #FDF5E6;
+            --bakery-cream-dark: #FAEDDB;
+            --bakery-brown: #5C4033;
+            --bakery-light-orange: #FFB347;
+            --bakery-dark-orange: #E68A00;
+        }
+
+        body {
+            background-color: var(--bakery-cream);
+            color: var(--bakery-brown);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Typography & Color Overrides */
+        .text-brown {
+            color: var(--bakery-brown) !important;
+        }
+
+        .bg-brown {
+            background-color: var(--bakery-brown) !important;
+            color: var(--bakery-cream) !important;
+        }
+
+        /* Buttons Component */
+        .btn-bakery {
+            background-color: var(--bakery-light-orange);
+            color: var(--bakery-brown);
+            border: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-bakery:hover {
+            background-color: var(--bakery-dark-orange);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Typography Layouts */
+        .section-title {
+            margin-bottom: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 70px;
+            height: 4px;
+            background-color: var(--bakery-light-orange);
+            display: block;
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* Cards Layout */
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(92, 64, 51, 0.08);
+            background-color: #fff;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Icons */
+        .icon-box {
+            font-size: 2.5rem;
+            color: var(--bakery-light-orange);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info i {
+            color: var(--bakery-light-orange);
+            font-size: 1.25rem;
+            margin-right: 0.75rem;
+        }
+
+        /* Custom UI Elements */
+        .map-container {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(92, 64, 51, 0.1);
+        }
+
+        .form-control {
+            border: 1px solid rgba(92, 64, 51, 0.2);
+            padding: 0.75rem 1rem;
+        }
+
+        .form-control:focus {
+            border-color: var(--bakery-light-orange);
+            box-shadow: 0 0 0 0.25rem rgba(255, 179, 71, 0.25);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 0;
+            border-top: 5px solid var(--bakery-light-orange);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Hero / Header Section -->
+    <header class="bg-brown py-5 text-center shadow-sm">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-2"><i class="bi bi-shop me-3 text-warning"></i>S R Bakery</h1>
+            <p class="lead mb-0 text-white-50">Deliciously baked with love, everyday.</p>
+        </div>
+    </header>
+
+    <!-- About Us Section -->
+    <section class="py-5" id="about">
+        <div class="container py-3">
+            <h2 class="section-title text-brown">About S R Bakery</h2>
+            <div class="row align-items-center g-4">
+                <div class="col-lg-6">
+                    <div class="card p-4 p-md-5 h-100">
+                        <h4 class="text-brown fw-bold mb-3">A Local Favorite in Oddanchatram</h4>
+                        <p>Welcome to <strong>S R Bakery</strong>, your vibrant local destination known for crafting the
+                            most delicious, fresh breads, cakes, pastries, and snacks.</p>
+                        <p>As a proprietorship run by owner <strong>S Gopinath</strong>, we hold an unwavering
+                            commitment to quality, hygiene, and absolute customer satisfaction. Our ingredients are
+                            locally sourced, and our recipes are carefully curated to ensure every bite brings joy to
+                            our community.</p>
+
+                        <hr class="my-4 text-muted">
+
+                        <div class="row text-center mt-3">
+                            <div class="col-4">
+                                <i class="bi bi-cake2 icon-box d-block"></i>
+                                <span class="fw-bold text-brown">Cakes</span>
+                            </div>
+                            <div class="col-4">
+                                <i class="bi bi-bag-heart icon-box d-block"></i>
+                                <span class="fw-bold text-brown">Breads</span>
+                            </div>
+                            <div class="col-4">
+                                <i class="bi bi-cup-hot icon-box d-block"></i>
+                                <span class="fw-bold text-brown">Snacks</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <!-- Bakery suggestive stock image -->
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=1000&auto=format&fit=crop"
+                        alt="Fresh Bakery Breads" class="img-fluid rounded-4 shadow-sm w-100"
+                        style="object-fit: cover; min-height: 450px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section class="py-5" id="contact" style="background-color: var(--bakery-cream-dark);">
+        <div class="container py-3">
+            <h2 class="section-title text-brown">Contact Us</h2>
+            <div class="row g-4">
+
+                <!-- Contact Information & Map -->
+                <div class="col-lg-5">
+                    <div class="card p-4 p-md-5 h-100">
+                        <h4 class="mb-4 text-brown fw-bold">Get in Touch</h4>
+
+                        <div class="contact-info mb-3 d-flex">
+                            <i class="bi bi-geo-alt-fill mt-1"></i>
+                            <div>
+                                <strong>S R Bakery</strong><br>
+                                <span class="small text-muted mb-1 d-block">Proprietorship</span>
+                                Ground Floor, Building No: SF NO-233/1A1<br>
+                                Sundhram & N. Ramanathan Building<br>
+                                Dindigul Palani Road<br>
+                                Nearby Landmark: Keerthi Supermarket<br>
+                                Oddanchatram, Dindigul<br>
+                                Tamil Nadu – 624619
+                            </div>
+                        </div>
+
+                        <div class="contact-info mb-3 d-flex align-items-center">
+                            <i class="bi bi-person-badge-fill"></i>
+                            <div><strong>Proprietor:</strong> S Gopinath</div>
+                        </div>
+
+                        <div class="contact-info mb-3 d-flex align-items-center">
+                            <i class="bi bi-telephone-fill"></i>
+                            <div>+91 XXXXX XXXXX</div>
+                        </div>
+
+                        <div class="contact-info mb-4 d-flex align-items-center">
+                            <i class="bi bi-envelope-fill"></i>
+                            <div><a href="mailto:contact@srbakery.com"
+                                    class="text-brown text-decoration-none">contact@srbakery.com</a></div>
+                        </div>
+
+                        <!-- Google Maps Iframe -->
+                        <div class="map-container ratio ratio-16x9 mt-auto">
+                            <!-- Points roughly to Oddanchatram -->
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.6330103737237!2d77.75135111533664!3d10.45037996530635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba9db3ad4f392dd%3A0xea8ee0b75a13c9e6!2sOddanchatram%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1689408759020!5m2!1sen!2sin"
+                                style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="col-lg-7">
+                    <div class="card p-4 p-md-5 h-100">
+                        <h4 class="mb-4 text-brown fw-bold">Send us a Message</h4>
+                        <form>
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label for="name" class="form-label fw-bold small text-muted">Name</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label fw-bold small text-muted">Email address</label>
+                                    <input type="email" class="form-control" id="email"
+                                        placeholder="contact@srbakery.com" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="phone" class="form-label fw-bold small text-muted">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" placeholder="+91 XXXXX XXXXX">
+                                </div>
+                                <div class="col-12">
+                                    <label for="message" class="form-label fw-bold small text-muted">Message</label>
+                                    <textarea class="form-control" id="message" rows="6"
+                                        placeholder="How can we help you today?" required></textarea>
+                                </div>
+                                <div class="col-12 text-end mt-4">
+                                    <button type="submit"
+                                        class="btn btn-bakery px-5 py-2 w-100 w-md-auto d-md-inline-block shadow-sm">
+                                        <i class="bi bi-send-fill me-2"></i> Submit Message
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brown text-center">
+        <div class="container">
+            <h4 class="mb-3 text-white fw-bold">S R Bakery</h4>
+            <p class="text-white-50 mb-3 small lh-lg">
+                <i class="bi bi-geo-alt me-1"></i> Ground Floor, Building No: SF NO-233/1A1<br>
+                Sundhram & N. Ramanathan Building, Dindigul Palani Road<br>
+                Oddanchatram, Dindigul, Tamil Nadu – 624619
+            </p>
+            <hr class="border-light opacity-25 mx-auto" style="max-width: 400px;">
+            <p class="mb-0 text-white-50 small mt-3">
+                &copy;
+                <script>document.write(new Date().getFullYear())</script> S R Bakery. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

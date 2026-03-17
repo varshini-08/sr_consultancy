@@ -14,10 +14,12 @@ const orderSchema = new mongoose.Schema({
     totalAmount: { type: Number, required: true },
     tax: { type: Number, default: 0 },
     shippingAddress: {
-        address: { type: String },
-        city: { type: String },
-        postalCode: { type: String },
-        country: { type: String }
+        name: { type: String, required: true },
+        address: { type: String, required: true },
+        city: { type: String, required: true },
+        postalCode: { type: String, required: true },
+        country: { type: String, default: 'India' },
+        mobileNumber: { type: String, required: true }
     },
     paymentMethod: { type: String, required: true }, // 'Cash', 'UPI', 'Card'
     paymentResult: {

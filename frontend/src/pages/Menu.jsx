@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import api from '../api/axios';
 import ProductCard from '../components/ProductCard';
+import { FaSearch } from 'react-icons/fa';
 
 const Menu = () => {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [filterCategory, setFilterCategory] = useState('');
+    const [filterCategory, setFilterCategory] = useState('All');
     const [searchTerm, setSearchTerm] = useState('');
 
     const location = useLocation();
@@ -15,7 +16,7 @@ const Menu = () => {
         const fetchCategories = async () => {
             try {
                 const { data } = await api.get('/products/categories');
-                setCategories(data);
+                setCategories(['All', ...data]);
             } catch (error) {
                 console.error('Error fetching categories:', error);
             }
@@ -44,41 +45,49 @@ const Menu = () => {
 
     const filteredProducts = products.filter(product => {
         return (
-            (filterCategory === '' || product.category === filterCategory) &&
+            (filterCategory === 'All' || product.category === filterCategory) &&
             (searchTerm === '' || product.name.toLowerCase().includes(searchTerm.toLowerCase()))
         );
     });
 
     return (
-        <div className="container" style={{ marginTop: '2rem' }}>
-            <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Our Menu</h2>
+        <div className="container" style={{ marginTop: '2rem', marginBottom: '4rem' }}>
+            {/* Header section */}
+            <div className="menu-page-header">
+                <h1 className="menu-page-title">Explore Our Menu</h1>
+                <p className="menu-page-subtitle" style={{ marginBottom: 0, color: 'white' }}>Freshly prepared, beautifully crafted just for you.</p>
+            </div>
 
-            {/* Filters */}
-            <div className="filters" style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', marginBottom: '2rem', justifyContent: 'center' }}>
+            {/* Search Bar */}
+            <div className="search-bar-wrapper">
+                <FaSearch className="search-icon-svg" />
                 <input
                     type="text"
-                    placeholder="Search items..."
+                    className="search-bar-input"
+                    placeholder="Search for your favorite item..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    style={{ padding: '10px', borderRadius: '5px', border: '1px solid #ddd', width: '300px' }}
                 />
-                <select
-                    value={filterCategory}
-                    onChange={(e) => setFilterCategory(e.target.value)}
-                    style={{ padding: '10px', borderRadius: '5px', border: '1px solid #ddd' }}
-                >
-                    <option value="">All Categories</option>
-                    {categories.map(cat => (
-                        <option key={cat} value={cat}>{cat}</option>
-                    ))}
-                </select>
+            </div>
+
+            {/* Category Filter */}
+            <div className="category-filter-container">
+                {categories.map(cat => (
+                    <div
+                        key={cat}
+                        className={`category-badge ${filterCategory === cat ? 'active' : ''}`}
+                        onClick={() => setFilterCategory(cat)}
+                    >
+                        {cat}
+                    </div>
+                ))}
             </div>
 
             {/* Products Grid */}
             <div className="products-grid" style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-                gap: '20px'
+                gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                gap: '30px'
             }}>
                 {filteredProducts.map(product => (
                     <ProductCard key={product._id} product={product} />
@@ -86,7 +95,10 @@ const Menu = () => {
             </div>
 
             {filteredProducts.length === 0 && (
-                <p style={{ textAlign: 'center', color: '#666', marginTop: '2rem' }}>No products found.</p>
+                <div style={{ textAlign: 'center', padding: '4rem 0', color: '#666' }}>
+                    <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>No items found.</h3>
+                    <p>Try adjusting your search or category filter.</p>
+                </div>
             )}
         </div>
     );

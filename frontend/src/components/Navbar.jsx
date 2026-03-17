@@ -36,6 +36,9 @@ const Navbar = () => {
                     {user && user.role === 'admin' && (
                         <Link to="/admin/dashboard">Admin</Link>
                     )}
+                    {user && user.role !== 'admin' && (
+                        <Link to="/user/dashboard">Dashboard</Link>
+                    )}
                 </div>
                 <div className="nav-actions">
                     <Link to="/cart" className="cart-icon">

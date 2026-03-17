@@ -15,65 +15,51 @@ const PlaceOrder = () => {
     const shippingPrice = totalPrice > 500 ? 0 : 50; // Free shipping over 500
     const grandTotal = totalPrice + taxPrice + shippingPrice;
 
-    const [paymentMethod, setPaymentMethod] = useState('Cash');
+    const [name, setName] = useState(user?.name || '');
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [postalCode, setPostalCode] = useState('');
+    const [mobileNumber, setMobileNumber] = useState('');
 
     const handlePlaceOrder = async (e) => {
         e.preventDefault();
 
-        try {
-            const orderData = {
-                orderItems: cartItems.map(item => ({
-                    productId: item._id,
-                    name: item.name,
-                    quantity: item.qty,
-                    price: item.price,
-                    image: item.image
-                })),
-                shippingAddress: {
-                    address, city, postalCode, country: 'India'
-                },
-                paymentMethod,
-                itemsPrice: totalPrice,
-                taxPrice,
-                shippingPrice,
-                totalPrice: grandTotal
-            };
+        const orderData = {
+            orderItems: cartItems.map(item => ({
+                productId: item._id,
+                name: item.name,
+                quantity: item.qty, // Ensure this matches what backend expects
+                price: item.price,
+                image: item.image
+            })),
+            shippingAddress: {
+                name, address, city, postalCode, mobileNumber, country: 'India'
+            },
+            itemsPrice: totalPrice,
+            taxPrice,
+            shippingPrice,
+            totalAmount: grandTotal
+        };
 
-            const { data } = await api.post('/orders', orderData);
-
-            // If payment method is Card/UPI, simulate payment
-            if (paymentMethod !== 'Cash') {
-                await api.put(`/orders/${data._id}/pay`, {
-                    id: 'PAYMENT_ID_' + Math.floor(Math.random() * 1000000),
-                    status: 'COMPLETED',
-                    update_time: new Date().toISOString(),
-                    email_address: user.email
-                });
-                toast.success('Payment Successful');
-            }
-
-            toast.success('Order Placed Successfully');
-            clearCart();
-            // Go to order tracking or details
-            // For now, tracking page requires entering ID manually as per prompt "Enter Order ID"
-            // But usually we redirect to order details.
-            // Let's redirect to My Orders or Tracking with ID ? 
-            // The prompt says "Customer can Enter Order ID". I'll redirect to a generic success page or Tracking.
-            // Let's redirect to Home for now, or Track Order page.
-            navigate('/track-order');
-        } catch (error) {
-            toast.error(error.response?.data?.message || 'Order Failed');
-        }
+        navigate('/payment', { state: { orderData } });
     };
 
     return (
         <div className="container" style={{ marginTop: '2rem', display: 'flex', gap: '30px', flexWrap: 'wrap' }}>
             <div style={{ flex: 1, minWidth: '300px' }}>
-                <h2 style={{ marginBottom: '1.5rem' }}>Shipping & Payment</h2>
+                <h2 style={{ marginBottom: '1.5rem' }}>Shipping Details</h2>
                 <form onSubmit={handlePlaceOrder}>
+                    <div style={{ marginBottom: '15px' }}>
+                        <label>Full Name</label>
+                        <input
+                            type="text"
+                            required
+                            placeholder="Customer Name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            style={{ width: '100%', padding: '10px', marginTop: '5px' }}
+                        />
+                    </div>
                     <div style={{ marginBottom: '15px' }}>
                         <label>Address</label>
                         <input
@@ -104,37 +90,21 @@ const PlaceOrder = () => {
                             style={{ width: '100%', padding: '10px', marginTop: '5px' }}
                         />
                     </div>
-
-                    <h3 style={{ marginTop: '20px', marginBottom: '10px' }}>Payment Method</h3>
-                    <div style={{ display: 'flex', gap: '15px' }}>
-                        <label>
-                            <input
-                                type="radio"
-                                value="Cash"
-                                checked={paymentMethod === 'Cash'}
-                                onChange={(e) => setPaymentMethod(e.target.value)}
-                            /> Cash on Delivery
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                value="UPI"
-                                checked={paymentMethod === 'UPI'}
-                                onChange={(e) => setPaymentMethod(e.target.value)}
-                            /> UPI
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                value="Card"
-                                checked={paymentMethod === 'Card'}
-                                onChange={(e) => setPaymentMethod(e.target.value)}
-                            /> Card
-                        </label>
+                    <div style={{ marginBottom: '15px' }}>
+                        <label>Mobile Number</label>
+                        <input
+                            type="tel"
+                            required
+                            pattern="[0-9]{10}"
+                            title="Please enter a valid 10-digit mobile number"
+                            value={mobileNumber}
+                            onChange={(e) => setMobileNumber(e.target.value)}
+                            style={{ width: '100%', padding: '10px', marginTop: '5px' }}
+                        />
                     </div>
 
                     <button type="submit" className="login-btn" style={{ marginTop: '20px', width: '100%', cursor: 'pointer' }}>
-                        Place Order (₹{grandTotal.toFixed(2)})
+                        Proceed to Checkout (₹{grandTotal.toFixed(2)})
                     </button>
                 </form>
             </div>

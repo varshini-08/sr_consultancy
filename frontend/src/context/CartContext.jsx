@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect, useContext } from 'react';
+import { toast } from 'react-toastify';
 
 const CartContext = createContext();
 
@@ -24,13 +25,31 @@ export const CartProvider = ({ children }) => {
     const addToCart = (product) => {
         const existItem = cartItems.find((x) => x._id === product._id);
         if (existItem) {
-            setCartItems(
-                cartItems.map((x) =>
-                    x._id === product._id ? { ...x, qty: x.qty + 1 } : x
-                )
-            );
+            if (existItem.qty < product.stock) {
+                setCartItems(
+                    cartItems.map((x) =>
+                        x._id === product._id ? { ...x, qty: x.qty + 1 } : x
+                    )
+                );
+                return true;
+            } else {
+                toast.warning(`Only ${product.stock} items available in stock`, {
+                    position: "bottom-right",
+                    autoClose: 2000,
+                });
+                return false;
+            }
         } else {
-            setCartItems([...cartItems, { ...product, qty: 1 }]);
+            if (product.stock > 0) {
+                setCartItems([...cartItems, { ...product, qty: 1 }]);
+                return true;
+            } else {
+                toast.error(`${product.name} is out of stock`, {
+                    position: "bottom-right",
+                    autoClose: 2000,
+                });
+                return false;
+            }
         }
     };
 
@@ -39,11 +58,19 @@ export const CartProvider = ({ children }) => {
     };
 
     const increaseQty = (id) => {
-        setCartItems(
-            cartItems.map((x) =>
-                x._id === id ? { ...x, qty: x.qty + 1 } : x
-            )
-        );
+        const item = cartItems.find((x) => x._id === id);
+        if (item && item.qty < item.stock) {
+            setCartItems(
+                cartItems.map((x) =>
+                    x._id === id ? { ...x, qty: x.qty + 1 } : x
+                )
+            );
+        } else if (item) {
+            toast.warning(`Max stock reached (${item.stock})`, {
+                position: "bottom-right",
+                autoClose: 2000,
+            });
+        }
     }
 
     const decreaseQty = (id) => {

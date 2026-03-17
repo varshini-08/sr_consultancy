@@ -1,12 +1,33 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaArrowRight } from 'react-icons/fa';
+import ProductCard from '../components/ProductCard';
+import api from '../api/axios';
 
 const Home = () => {
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const { data } = await api.get('/products');
+                // Display first 8 products on home page
+                setProducts(data.slice(0, 8));
+            } catch (error) {
+                console.error('Error fetching products for home page:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
     return (
         <div className="home">
             {/* Hero Section */}
             <div className="hero" style={{
-                backgroundImage: 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80")', // Food spread / Cafe variety
+                backgroundImage: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("/sr_bakery_exterior.jpg")', // Real Bakery Exterior
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 height: '80vh',
@@ -19,7 +40,6 @@ const Home = () => {
             }}>
                 <div className="hero-content" style={{ maxWidth: '800px', padding: '0 20px' }}>
                     <div style={{ marginBottom: '20px' }}>
-                        {/* Logo/Badge simplified representation if needed, or just text */}
                         <span style={{
                             border: '2px solid rgba(255,255,255,0.8)',
                             padding: '10px 20px',
@@ -27,7 +47,7 @@ const Home = () => {
                             textTransform: 'uppercase',
                             letterSpacing: '2px',
                             backgroundColor: 'rgba(0,0,0,0.3)'
-                        }}>Since 1995</span>
+                        }}>Since 2025</span>
                     </div>
                     <h1 style={{
                         fontSize: '4.5rem',
@@ -75,12 +95,11 @@ const Home = () => {
                             boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
                         }}>
                             <img
-                                src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
-                                alt="Delicious Pastries"
-                                style={{ width: '100%', display: 'block' }}
+                                src="/sr_bakery_real.jpg"
+                                alt="SR Bakery Interior and Team"
+                                style={{ width: '100%', display: 'block', minHeight: '400px', objectFit: 'cover' }}
                             />
                         </div>
-                        {/* Decorative background element */}
                         <div style={{
                             position: 'absolute',
                             top: '-20px',
@@ -96,69 +115,36 @@ const Home = () => {
                 </div>
             </div>
 
-            {/* Best Selling Section */}
+            {/* Best Selling Section / Dynamic Menus */}
             <div className="section-bestsellers" style={{ padding: '5rem 0', backgroundColor: '#fdfbf7' }}>
                 <div className="container">
                     <div className="text-center">
-                        <h2 className="section-title">Premium Cakes & Pastries</h2>
-                        <p className="section-subtitle">Our Best-Selling Treats</p>
+                        <h2 className="section-title">Premium Menu</h2>
+                        <p className="section-subtitle">Our Freshly Prepared Items</p>
                     </div>
 
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                        gap: '30px',
-                        marginTop: '3rem'
-                    }}>
-                        {/* Product Card 1 */}
-                        <div className="product-card" style={{ backgroundColor: 'white', borderRadius: '15px', overflow: 'hidden', boxShadow: '0 10px 20px rgba(0,0,0,0.05)', transition: 'transform 0.3s' }}>
-                            <div style={{ height: '250px', overflow: 'hidden' }}>
-                                <img
-                                    src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                                    alt="Chocolate Cake"
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s' }}
-                                />
-                            </div>
-                            <div style={{ padding: '20px', textAlign: 'center' }}>
-                                <h3 style={{ fontSize: '1.4rem', marginBottom: '5px' }}>Rich Chocolate Cake</h3>
-                                <p style={{ color: '#d35400', fontWeight: 'bold', fontSize: '1.2rem' }}>₹450</p>
-                            </div>
+                    {loading ? (
+                        <div style={{ textAlign: 'center', padding: '3rem 0' }}>Loading menus...</div>
+                    ) : (
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                            gap: '30px',
+                            marginTop: '3rem'
+                        }}>
+                            {products.length > 0 ? (
+                                products.map(product => (
+                                    <ProductCard key={product._id} product={product} />
+                                ))
+                            ) : (
+                                <p style={{ textAlign: 'center', gridColumn: '1 / -1', color: '#7f8c8d' }}>No items found.</p>
+                            )}
                         </div>
-
-                        {/* Product Card 2 */}
-                        <div className="product-card" style={{ backgroundColor: 'white', borderRadius: '15px', overflow: 'hidden', boxShadow: '0 10px 20px rgba(0,0,0,0.05)', transition: 'transform 0.3s' }}>
-                            <div style={{ height: '250px', overflow: 'hidden' }}>
-                                <img
-                                    src="https://images.unsplash.com/photo-1469533778471-92a68acc3633?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                                    alt="Fruit Tart"
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s' }}
-                                />
-                            </div>
-                            <div style={{ padding: '20px', textAlign: 'center' }}>
-                                <h3 style={{ fontSize: '1.4rem', marginBottom: '5px' }}>Fresh Fruit Tart</h3>
-                                <p style={{ color: '#d35400', fontWeight: 'bold', fontSize: '1.2rem' }}>₹350</p>
-                            </div>
-                        </div>
-
-                        {/* Product Card 3 */}
-                        <div className="product-card" style={{ backgroundColor: 'white', borderRadius: '15px', overflow: 'hidden', boxShadow: '0 10px 20px rgba(0,0,0,0.05)', transition: 'transform 0.3s' }}>
-                            <div style={{ height: '250px', overflow: 'hidden' }}>
-                                <img
-                                    src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                                    alt="Croissants"
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s' }}
-                                />
-                            </div>
-                            <div style={{ padding: '20px', textAlign: 'center' }}>
-                                <h3 style={{ fontSize: '1.4rem', marginBottom: '5px' }}>Butter Croissants</h3>
-                                <p style={{ color: '#d35400', fontWeight: 'bold', fontSize: '1.2rem' }}>₹120</p>
-                            </div>
-                        </div>
-                    </div>
+                    )}
 
                     <div className="text-center" style={{ marginTop: '3rem' }}>
                         <Link to="/menu" className="btn btn-primary" style={{ padding: '15px 50px' }}>
-                            View Our Menu
+                            View Full Menu
                         </Link>
                     </div>
                 </div>

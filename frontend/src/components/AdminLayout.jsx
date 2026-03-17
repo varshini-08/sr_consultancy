@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { FaTachometerAlt, FaBoxOpen, FaClipboardList, FaChartBar, FaCog, FaSignOutAlt, FaUserCircle } from 'react-icons/fa';
+import { FaTachometerAlt, FaBoxOpen, FaClipboardList, FaChartBar, FaCog, FaSignOutAlt, FaUserCircle, FaHome } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
 
 const AdminLayout = () => {
@@ -17,9 +17,11 @@ const AdminLayout = () => {
     };
 
     const sidebarItems = [
+        { path: '/', icon: <FaHome />, label: 'Back to Website' },
         { path: '/admin/dashboard', icon: <FaTachometerAlt />, label: 'Dashboard' },
         { path: '/admin/orders', icon: <FaClipboardList />, label: 'Orders' },
-        { path: '/admin/products', icon: <FaBoxOpen />, label: 'Menu Management' }, // Assuming this route exists or will exist
+        { path: '/admin/products', icon: <FaBoxOpen />, label: 'Menu Management' },
+        { path: '/admin/users', icon: <FaUserCircle />, label: 'User Management' },
         { path: '/admin/reports', icon: <FaChartBar />, label: 'Reports' },
         { path: '/admin/settings', icon: <FaCog />, label: 'Settings' },
     ];

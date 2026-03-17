@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 import { toast } from 'react-toastify';
+import api from '../api/axios';
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -10,6 +12,7 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const { register, user } = useAuth();
+    const { addToCart } = useCart();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -30,6 +33,26 @@ const Register = () => {
         try {
             await register(name, email, password);
             toast.success('Registration Successful');
+
+            // Auto-resume cart
+            const pendingCartStr = localStorage.getItem('pendingCart');
+            if (pendingCartStr) {
+                const pendingProduct = JSON.parse(pendingCartStr);
+                addToCart(pendingProduct);
+                localStorage.removeItem('pendingCart');
+
+                // Log activity
+                try {
+                    await api.post('/activities', { action: 'Added to Cart', details: `Added ${pendingProduct.name} to cart after registering` });
+                } catch (error) {
+                    console.error("Could not log activity", error);
+                }
+
+                toast.success(`${pendingProduct.name} added to cart!`);
+                navigate('/cart');
+                return;
+            }
+
             navigate('/');
         } catch (error) {
             toast.error(error.response?.data?.message || 'Registration Failed');

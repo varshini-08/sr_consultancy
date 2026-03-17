@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Activity = require('../models/Activity');
 const jwt = require('jsonwebtoken');
 
 const generateToken = (id) => {
@@ -24,6 +25,7 @@ const registerUser = async (req, res) => {
     });
 
     if (user) {
+        await Activity.create({ user: user._id, action: 'Registered', details: 'Created a new account' });
         res.status(201).json({
             _id: user._id,
             name: user.name,
@@ -39,9 +41,22 @@ const registerUser = async (req, res) => {
 const authUser = async (req, res) => {
     const { email, password } = req.body;
 
+    // Hardcoded Admin
+    if (email === 'varshini.odc@gmail.com' && password === 'varchu') {
+        const adminId = '000000000000000000000000';
+        return res.json({
+            _id: adminId,
+            name: 'Varshini (Admin)',
+            email: 'varshini.odc@gmail.com',
+            role: 'admin',
+            token: generateToken(adminId),
+        });
+    }
+
     const user = await User.findOne({ email });
 
     if (user && (await user.matchPassword(password))) {
+        await Activity.create({ user: user._id, action: 'Logged In', details: 'Successfully logged into the platform' });
         res.json({
             _id: user._id,
             name: user.name,

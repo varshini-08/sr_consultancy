@@ -1,0 +1,17 @@
+﻿[dotenv@17.2.4] injecting env (9) from .env -- tip: ≡ƒöÉ encrypt with Dotenvx: https://dotenvx.com
+--- Database Verification (Selected) ---
+Mushroom Fry -> /uploads/mushroom_fry_new.jpg
+Gobi 65 -> /uploads/gobi_65_new.jpg
+Mushroom 65 -> /uploads/mushroom_65_new.jpg
+Paneer 65 -> /uploads/paneer_65_new.jpg
+Paneer Manchurian -> /uploads/paneer_manchurian_new.png
+Mushroom Manchurian -> /uploads/mushroom_manchurian_new.png
+Gobi Manchurian -> /uploads/gobi_manchurian_new.png
+Egg Mushroom Fry -> /uploads/egg_mushroom_fry_new.png
+Chicken Manchurian -> /uploads/chicken_manchurian_new.png
+Chicken Fried Lollipop -> /uploads/chicken_lollipop_new.jpg
+Chicken Fried Wings -> /uploads/chicken_fried_wings_new.png
+Boneless Chicken 65 -> /uploads/boneless_chicken_65_new.jpg
+Quarter -> /uploads/quarter_new.png
+Half -> /uploads/half_new.jpg
+Full -> /uploads/full_new.png

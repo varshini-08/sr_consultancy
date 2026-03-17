@@ -1,6 +1,7 @@
 const Order = require('../models/Order');
 const Product = require('../models/Product');
 const User = require('../models/User');
+const { generateOrdersExcel } = require('../utils/excelGenerator');
 
 const getDashboardStats = async (req, res) => {
     try {
@@ -33,13 +34,31 @@ const getDashboardStats = async (req, res) => {
         // Recent Orders (Limit 5)
         const recentOrders = await Order.find().sort({ createdAt: -1 }).limit(5).populate('user', 'name email');
 
+        // Items sold today and month
+        const ordersToday = await Order.find({ createdAt: { $gte: today } });
+        const itemsSoldToday = ordersToday.reduce((acc, order) => {
+            return acc + order.orderItems.reduce((iAcc, item) => iAcc + item.quantity, 0);
+        }, 0);
+
+        const ordersMonth = await Order.find({ createdAt: { $gte: startOfMonth } });
+        const itemsSoldMonth = ordersMonth.reduce((acc, order) => {
+            return acc + order.orderItems.reduce((iAcc, item) => iAcc + item.quantity, 0);
+        }, 0);
+
+        const productsAll = await Product.find({});
+        const itemsUnsold = productsAll.reduce((acc, p) => acc + p.stock, 0);
+
         res.json({
             today: statsToday,
             week: statsWeek,
             month: statsMonth,
             year: statsYear,
             totalUsers,
-            recentOrders
+            recentOrders,
+            itemsSoldToday,
+            itemsUnsoldToday: itemsUnsold,
+            itemsSoldMonth,
+            itemsUnsoldMonth: itemsUnsold
         });
     } catch (error) {
         console.error('Analytics Error:', error);
@@ -101,4 +120,18 @@ const getMonthlyReport = async (req, res) => {
     });
 };
 
-module.exports = { getDashboardStats, getDailyReport, getMonthlyReport };
+const exportOrders = async (req, res) => {
+    try {
+        const orders = await Order.find({}).populate('user', 'name email').sort({ createdAt: -1 });
+        const buffer = generateOrdersExcel(orders);
+
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader('Content-Disposition', 'attachment; filename=orders_report.xlsx');
+        res.send(buffer);
+    } catch (error) {
+        console.error('Export Error:', error);
+        res.status(500).json({ message: 'Error exporting orders' });
+    }
+};
+
+module.exports = { getDashboardStats, getDailyReport, getMonthlyReport, exportOrders };
