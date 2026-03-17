@@ -65,11 +65,12 @@ app.use('/api/upload', uploadRoutes);
 // Static assets
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    if (process.env.NODE_ENV !== 'production') {
         sendStartupTestEmail();
-    });
-}
+    }
+});
 
 module.exports = app;
