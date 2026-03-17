@@ -19,7 +19,7 @@ app.use((req, res, next) => {
     next();
 });
 app.use(cors({
-    origin: ['http://localhost:5173'],
+    origin: ['http://localhost:5173', 'https://sr-consultancy-frontend.vercel.app', 'https://srconsultancy-ten.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
 }));
