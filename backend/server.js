@@ -19,7 +19,14 @@ app.use((req, res, next) => {
     next();
 });
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://sr-consultancy-frontend.vercel.app', 'https://srconsultancy-ten.vercel.app'],
+    origin: function (origin, callback) {
+        // Allow localhost and any vercel.app subdomain
+        if (!origin || origin.indexOf('localhost') !== -1 || origin.indexOf('vercel.app') !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
 }));
