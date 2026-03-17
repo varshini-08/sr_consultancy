@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { FaTrash, FaMinus, FaPlus } from 'react-icons/fa';
+import { getImageUrl } from '../utils/imageHandler';
 
 const Cart = () => {
     const { cartItems, removeFromCart, increaseQty, decreaseQty, totalPrice } = useCart();
@@ -40,7 +41,7 @@ const Cart = () => {
                         boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
                     }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                            <img src={item.image} alt={item.name} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '5px' }} />
+                            <img src={getImageUrl(item.image)} alt={item.name} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '5px' }} />
                             <div>
                                 <h3 style={{ margin: 0, fontSize: '1.1rem' }}>{item.name}</h3>
                                 <p style={{ color: '#666', margin: '5px 0' }}>₹{item.price}</p>

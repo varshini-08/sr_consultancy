@@ -3,6 +3,7 @@ import api from '../api/axios';
 import { toast } from 'react-toastify';
 import { FaEdit, FaTrash, FaPlus, FaTimes, FaUpload } from 'react-icons/fa';
 import { uploadImage } from '../api/uploadService';
+import { getImageUrl } from '../utils/imageHandler';
 
 const AdminProducts = () => {
     const [products, setProducts] = useState([]);
@@ -16,11 +17,6 @@ const AdminProducts = () => {
     const [imageFile, setImageFile] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
 
-    const getImageUrl = (imagePath) => {
-        if (!imagePath) return '';
-        if (imagePath.startsWith('http') || imagePath.startsWith('data:') || imagePath.startsWith('blob:')) return imagePath;
-        return `http://localhost:5000${imagePath}`;
-    };
 
     // Form State
     const [formData, setFormData] = useState({

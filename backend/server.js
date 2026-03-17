@@ -1,11 +1,12 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const path = require('path');
 const dotenv = require('dotenv');
+const mongoose = require('mongoose');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const path = require('path');
 
-dotenv.config({ override: true });
+// Load .env from root directory
+dotenv.config({ path: path.join(__dirname, '..', '.env') });
 const { sendStartupTestEmail } = require('./utils/notification');
 
 const app = express();
@@ -57,8 +58,11 @@ app.use('/api/upload', uploadRoutes);
 // Static assets
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-    // Send test email on startup to verify configuration
-    sendStartupTestEmail();
-});
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+        sendStartupTestEmail();
+    });
+}
+
+module.exports = app;

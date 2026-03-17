@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { FaPlus, FaMinus, FaShoppingCart, FaBolt, FaArrowLeft, FaPizzaSlice, FaHamburger, FaCoffee, FaBirthdayCake, FaDrumstickBite, FaUtensils, FaBoxOpen } from 'react-icons/fa';
 import api from '../api/axios';
 import { toast } from 'react-toastify';
+import { getImageUrl } from '../utils/imageHandler';
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -33,11 +34,6 @@ const ProductDetails = () => {
         fetchProduct();
     }, [id, navigate]);
 
-    const getImageUrl = (imagePath) => {
-        if (!imagePath) return '';
-        if (imagePath.startsWith('http') || imagePath.startsWith('data:') || imagePath.startsWith('blob:')) return imagePath;
-        return `http://localhost:5000${imagePath}`;
-    };
 
     const getCategoryIcon = (category) => {
         const cat = category?.toLowerCase() || '';

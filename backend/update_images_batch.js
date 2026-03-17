@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Product = require('./models/Product');
 
-dotenv.config();
+const path = require('path');
+dotenv.config({ path: path.join(__dirname, '..', '.env') });
 
 const updateImages = async () => {
     try {

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FaPlus, FaUtensils, FaPizzaSlice, FaHamburger, FaCoffee, FaBirthdayCake, FaDrumstickBite, FaBoxOpen } from 'react-icons/fa';
 import api from '../api/axios';
+import { getImageUrl } from '../utils/imageHandler';
 
 const ProductCard = ({ product }) => {
     const { addToCart } = useCart();
@@ -12,12 +13,6 @@ const ProductCard = ({ product }) => {
     const navigate = useNavigate();
     const [imgError, setImgError] = useState(false);
 
-    const getImageUrl = (imagePath) => {
-        if (!imagePath) return '';
-        if (imagePath.startsWith('http') || imagePath.startsWith('data:') || imagePath.startsWith('blob:')) return imagePath;
-        // Prefix with backend URL if it's a relative path
-        return `http://localhost:5000${imagePath}`;
-    };
 
     const getCategoryIcon = (category) => {
         const cat = category.toLowerCase();
